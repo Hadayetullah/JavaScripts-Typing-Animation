@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Animation</title>
+    <style>
+        .text-animation {
+            width: 500px;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .text-content {
+            position: absolute;
+            color: #333;
+            font-size: 24px;
+            display: inline-block;
+            white-space: nowrap; /* Prevent text from wrapping */
+            overflow: hidden;
+            opacity: 0;
+            transition: width 1s ease-in-out; /* Add a delay only for opacity */
+        }
+
+        .active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="text-animation">
+    <p class="text-content">First Text</p>
+    <p class="text-content">Another text content</p>
+    <p class="text-content">Final Text</p>
+</div>
+
+<script>
+    const textContents = document.querySelectorAll('.text-content');
+
+    function animateText(index) {
+        // Set the opacity for the current text
+        
+        // Set the width to the fixed value
+        // textContents[index].style.opacity = 1;
+        textContents[index].classList.add("active");
+        textContents[index].style.width = '100%';
+
+        // Reset opacity and width for the current text after a delay
+        setTimeout(() => {
+            textContents[index].style.width = '0';
+            // textContents[index].style.opacity = 0;
+
+            // Move to the next text, or loop back to the beginning
+            const nextIndex = (index + 1) % textContents.length;
+
+            // Repeat the animation for the next text after a delay
+            setTimeout(() => {
+                animateText(nextIndex);
+            }, 1000); // Adjust the timing as needed
+        }, 3000);
+    }
+
+    // Start the animation with the first text
+    animateText(0);
+</script>
+
+</body>
+</html>
